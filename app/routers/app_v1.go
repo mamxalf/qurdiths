@@ -26,5 +26,5 @@ func SetupRoutesV1(app fiber.Router) {
 	hadithController := controllers.NewHadithController(&hadithService)
 
 	//productController.Route(app)
-	hadithController.Route(app)
+	hadithController.Route(app.Group("/hadiths"))
 }
