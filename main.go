@@ -9,6 +9,7 @@ import (
 	"hadithgo/app/config"
 	"hadithgo/app/exceptions"
 	"hadithgo/app/routers"
+	"hadithgo/domain/models"
 )
 
 func main() {
@@ -19,6 +20,7 @@ func main() {
 	app.Use(logger.New(config.LoggerConfig()))
 
 	// Fiber Monitor
+	app.Get("/", root)
 	app.Get("/monitor", monitor.New())
 
 	// Setup Routing API
@@ -31,4 +33,12 @@ func main() {
 	// Start App
 	err := app.Listen(":3000")
 	exceptions.PanicIfNeeded(err)
+}
+
+func root(c *fiber.Ctx) error {
+	return c.JSON(models.WebResponse{
+		Code:   fiber.StatusOK,
+		Status: "Success",
+		Data:   "#ROOT",
+	})
 }
