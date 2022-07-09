@@ -1,0 +1,8 @@
+GET http://localhost:3000/
+Accept: application/json
+
+###
+GET http://localhost:3000/monitor
+Accept: application/json
+
+###
