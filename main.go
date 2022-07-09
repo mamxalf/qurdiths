@@ -9,7 +9,6 @@ import (
 	"hadithgo/app/config"
 	"hadithgo/app/exceptions"
 	"hadithgo/app/routers"
-	"hadithgo/domain/models"
 )
 
 func main() {
@@ -36,9 +35,5 @@ func main() {
 }
 
 func root(c *fiber.Ctx) error {
-	return c.JSON(models.WebResponse{
-		Code:   fiber.StatusOK,
-		Status: "Success",
-		Data:   "#ROOT",
-	})
+	return c.SendString("#ROOT")
 }
