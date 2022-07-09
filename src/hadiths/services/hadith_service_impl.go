@@ -1,6 +1,7 @@
 package services
 
 import (
+	"hadithgo/domain/entities"
 	"hadithgo/domain/models"
 	"hadithgo/src/hadiths/repositories"
 )
@@ -25,4 +26,8 @@ func (service *hadithServiceImpl) ListBooks() (responses []models.GetBookListRes
 		})
 	}
 	return responses, err
+}
+
+func (service *hadithServiceImpl) GetHadith(book string, number int32) (hadith entities.Hadith, err error) {
+	return service.HadithRepository.Get(book, number)
 }

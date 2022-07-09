@@ -1,11 +1,13 @@
 package repositories
 
 import (
+	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"hadithgo/app/config"
 	"hadithgo/app/exceptions"
+	"hadithgo/app/helpers"
 	"hadithgo/domain/entities"
 )
 
@@ -39,4 +41,10 @@ func (repository *hadithRepositoryImpl) FindAll() (hadiths []entities.ListBooks,
 	}
 
 	return hadiths, err
+}
+
+func (repository *hadithRepositoryImpl) Get(book string, number int32) (hadith entities.Hadith, err error) {
+	response, err := helpers.ReadFile(book, number)
+	fmt.Println(err)
+	return response, err
 }
