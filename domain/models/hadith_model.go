@@ -5,3 +5,7 @@ type GetBookListResponses struct {
 	Name   string `json:"name"`
 	Amount int32  `json:"amount"`
 }
+
+type CreateBulkBook struct {
+	Book string
+}

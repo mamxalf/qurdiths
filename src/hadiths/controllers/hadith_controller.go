@@ -20,6 +20,7 @@ func NewHadithController(hadithService *services.HadithService) HadithController
 func (controller *HadithController) Route(app fiber.Router) {
 	app.Get("/books", controller.Books)
 	app.Get("/book/:name/:number", controller.Hadith)
+	app.Post("/books/insert", controller.BulkInsertBook)
 }
 
 func (controller *HadithController) Books(c *fiber.Ctx) error {
@@ -43,6 +44,31 @@ func (controller *HadithController) Hadith(c *fiber.Ctx) error {
 		})
 	}
 
+	return c.JSON(models.WebResponse{
+		Code:   fiber.StatusOK,
+		Status: "Success",
+		Data:   response,
+	})
+}
+
+func (controller *HadithController) BulkInsertBook(c *fiber.Ctx) error {
+	var params models.CreateBulkBook
+	err := c.BodyParser(&params)
+	if err != nil {
+		return c.JSON(models.WebResponse{
+			Code:   fiber.StatusBadRequest,
+			Status: "Error",
+			Data:   err.Error(),
+		})
+	}
+	response, err := controller.HadithService.BulkInsertHadith(params.Book)
+	if err != nil {
+		return c.JSON(models.WebResponse{
+			Code:   fiber.StatusBadRequest,
+			Status: "Error",
+			Data:   err.Error(),
+		})
+	}
 	return c.JSON(models.WebResponse{
 		Code:   fiber.StatusOK,
 		Status: "Success",

@@ -8,4 +8,5 @@ import (
 type HadithService interface {
 	ListBooks() (responses []models.GetBookListResponses, err error)
 	GetHadith(book string, number int32) (hadith entities.Hadith, err error)
+	BulkInsertHadith(book string) (string, error)
 }
