@@ -25,11 +25,11 @@ func (repository *hadithRepositoryImpl) Get(book string, number int32) (hadith e
 	return response, err
 }
 
-func (repository *hadithRepositoryImpl) BulkInsert(book string) (message string, err error) {
+func (repository *hadithRepositoryImpl) BulkInsert(book string, path string) (message string, err error) {
 	ctx, cancel := config.NewMongoContext(30)
 	defer cancel()
 
-	data, _ := helpers.BuildBulkInsertData(book)
+	data, _ := helpers.BuildBulkInsertData(book, path)
 	_, err = repository.Collection.InsertMany(ctx, data)
 	return book, err
 }

@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"hadithgo/domain/models"
 	"hadithgo/src/hadiths/services"
@@ -61,7 +62,25 @@ func (controller *HadithController) BulkInsertBook(c *fiber.Ctx) error {
 			Data:   err.Error(),
 		})
 	}
-	response, err := controller.HadithService.BulkInsertHadith(params.Book)
+
+	file, err := c.FormFile("file")
+	if err != nil {
+		return c.JSON(models.WebResponse{
+			Code:   fiber.StatusBadRequest,
+			Status: "Error",
+			Data:   err.Error(),
+		})
+	}
+	path := fmt.Sprintf("./data/%s", file.Filename)
+	err = c.SaveFile(file, path)
+	if err != nil {
+		return c.JSON(models.WebResponse{
+			Code:   fiber.StatusBadRequest,
+			Status: "Error",
+			Data:   err.Error(),
+		})
+	}
+	response, err := controller.HadithService.BulkInsertHadith(params.Book, path)
 	if err != nil {
 		return c.JSON(models.WebResponse{
 			Code:   fiber.StatusBadRequest,

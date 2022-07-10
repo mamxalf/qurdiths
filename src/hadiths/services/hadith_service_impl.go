@@ -34,6 +34,6 @@ func (service *hadithServiceImpl) GetHadith(book string, number int32) (hadith e
 	return service.HadithRepository.Get(book, number)
 }
 
-func (service *hadithServiceImpl) BulkInsertHadith(book string) (string, error) {
-	return service.HadithRepository.BulkInsert(book)
+func (service *hadithServiceImpl) BulkInsertHadith(book string, path string) (string, error) {
+	return service.HadithRepository.BulkInsert(book, path)
 }

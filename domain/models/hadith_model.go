@@ -8,4 +8,5 @@ type GetBookListResponses struct {
 
 type CreateBulkBook struct {
 	Book string
+	File string
 }

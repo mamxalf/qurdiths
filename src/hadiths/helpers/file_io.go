@@ -9,10 +9,8 @@ import (
 	"os"
 )
 
-func BuildBulkInsertData(book string) ([]interface{}, error) {
+func BuildBulkInsertData(book string, path string) ([]interface{}, error) {
 	// buka file
-	rootPath, _ := os.Getwd()
-	path := fmt.Sprintf("%s/data/%s.json", rootPath, book)
 	var jsonFile, err = os.Open(path)
 	if err != nil {
 		return nil, err
