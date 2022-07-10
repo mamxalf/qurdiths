@@ -1,6 +1,6 @@
 package entities
 
-type ListBooks struct {
+type Book struct {
 	ID     string
 	Name   string
 	Amount int32
@@ -17,4 +17,9 @@ type Hadith struct {
 	Number     int32
 	Arabian    string
 	Indonesian string
+}
+
+type InsertHadith struct {
+	Name string
+	File string
 }
