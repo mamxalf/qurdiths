@@ -10,7 +10,7 @@ import (
 )
 
 func ConnectMongoDatabase(configuration Config) *mongo.Database {
-	ctx, cancel := NewMongoContext()
+	ctx, cancel := NewMongoContext(10)
 	defer cancel()
 
 	mongoPoolMin, err := strconv.Atoi(configuration.Get("MONGO_POOL_MIN"))
@@ -38,6 +38,6 @@ func ConnectMongoDatabase(configuration Config) *mongo.Database {
 	return database
 }
 
-func NewMongoContext() (context.Context, context.CancelFunc) {
-	return context.WithTimeout(context.Background(), 10*time.Second)
+func NewMongoContext(sec int) (context.Context, context.CancelFunc) {
+	return context.WithTimeout(context.Background(), time.Duration(sec)*time.Second)
 }
