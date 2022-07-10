@@ -16,10 +16,11 @@ func SetupRoutesV1(app fiber.Router) {
 	// Setup Repository
 	//productRepository := repository.NewProductRepository(database)
 	hadithRepository := repositories.NewHadithRepository(database)
+	hadithBookRepository := repositories.NewHadithBookRepository(database)
 
 	// Setup Service
 	//productService := service.NewProductService(&productRepository)
-	hadithService := services.NewHadithService(&hadithRepository)
+	hadithService := services.NewHadithService(&hadithRepository, &hadithBookRepository)
 
 	// Setup Controller
 	//productController := controller.NewProductController(&productService)
